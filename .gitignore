@@ -9,3 +9,5 @@
 
 /.vscode
 
+# build
+/macos-x86_64

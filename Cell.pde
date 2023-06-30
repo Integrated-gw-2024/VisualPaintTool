@@ -1,11 +1,12 @@
-class Cell {
-
+class Cell {  
   int col = 255;
   
-  float scale = 40;
-  
+  float scale = ellipseSize;
+   
   float x = 0;
   float y = 0;
+  
+  Boolean toggleStatus = false;
   
   
   void render() {

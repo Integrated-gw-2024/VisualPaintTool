@@ -4,6 +4,7 @@ void mouseDragged() {
 
 void mousePressed() {
   isViewCopiedText = false;
+  redoHistory.clear();
   toggleCellEntity();
   //undoHistory.add(differentCellNums);
   //differentCellNums.clear();

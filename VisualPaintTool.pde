@@ -26,6 +26,7 @@ String MODE = "PEN";
 
 
 ArrayDeque<CellsHistory> undoHistory = new ArrayDeque<>();
+ArrayDeque<CellsHistory> redoHistory = new ArrayDeque<>();
 CellsHistory ch = new CellsHistory();
 
 

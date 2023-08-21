@@ -1,5 +1,6 @@
 class Cell {  
   int col = 255;
+  int num;
   
   float scale = ellipseSize;
    

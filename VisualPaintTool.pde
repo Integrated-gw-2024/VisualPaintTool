@@ -162,7 +162,6 @@ void draw() {
     fill(0);
     textSize(textSz);
 
-
     text("[Copied!!]", textZabutonX+textSpaceX, (height-szH)+(13-10));
   }
 
@@ -171,7 +170,7 @@ void draw() {
 
 
   stroke(0);
-  if (scaleImageMode && !isMouseReleased) {
+  if (imgcon.mode=="SCALE" && !isMouseReleased) {
     strokeWeight(1);
     line(firstClickX, firstClickY, mouseX, mouseY);
 

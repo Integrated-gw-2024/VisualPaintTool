@@ -10,6 +10,11 @@ void toggleCellEntity() {
             println("aaa");
             ch.history.add(cell.num);
           }
+          
+          if ((cell.col==0 && MODE == "PEN")) {
+            println("aaa");
+            ch.history.add(cell.num);
+          }
         }
 
         if (cell.col==255 && MODE == "PEN") {

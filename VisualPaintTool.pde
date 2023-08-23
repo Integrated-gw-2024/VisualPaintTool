@@ -105,11 +105,8 @@ void draw() {
   fill(0);
   textSize(textSz);
 
-
   text("mode:  " + MODE, textZabutonX+textSpaceX, textSpaceY);
   text("scale:  " + ellipseSize, textZabutonX+textSpaceX, textSpaceY+textSz+3);
-
-
 
   if (MODE=="IMAGE") {
     szH = 50;
@@ -121,9 +118,7 @@ void draw() {
     fill(0);
     textSize(textSz);
 
-
     text("image mode:  " + imgcon.mode, textZabutonX-szW, textSpaceY);
-
 
     if (imgPath != null) {
       szH = 37;

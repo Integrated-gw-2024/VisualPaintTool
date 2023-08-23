@@ -11,7 +11,12 @@ class Cell {
 
 
   void render() {
-    fill(col);
+    if(col==0){
+      fill(col);
+    }else if(col==255){
+      noFill();
+    }
+    
     ellipseMode(CORNER);
     ellipse(x, y, scale, scale);
   }

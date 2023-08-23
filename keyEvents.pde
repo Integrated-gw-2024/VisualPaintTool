@@ -1,10 +1,28 @@
 Boolean hasPressedShift = false;
 
 void keyPressed() {
+  /*if (keyCode==38) {
+   targetHeight += 10;
+   } else if (keyCode==40) {
+   targetHeight -= 10;
+   }*/
   println(keyCode);
 
 
   switch(keyCode) {
+  case 51:
+    MODE = "IMAGE";
+    break;
+  case 83:
+    if (MODE=="IMAGE") {
+      imgcon.setMode("SCALE");
+    }
+    break;
+  case 77:
+    if (MODE=="IMAGE") {
+      imgcon.setMode("MOVE");
+    }
+    break;
   case 49:
     //1
     MODE = "PEN";

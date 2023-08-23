@@ -1,11 +1,17 @@
 import java.awt.datatransfer.*;
+import java.awt.dnd.*;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Component;
+import java.util.List;
 import java.util.ArrayDeque;
 
 Boolean isViewCopiedText = false;
 Boolean hasPressedCtrl = false;
 //float ellipseSize = 8;
 float ellipseSize = 50;
+DropTarget dropTarget;
 
 Cell c;
 
@@ -23,14 +29,33 @@ ArrayList<String> rectElements;
 
 String MODE = "PEN";
 
+//Boolean moveImageMode = false;
+//Boolean scaleImageMode = false;
+Boolean isDragEnter = false;
+Boolean isDrop = false;
 
+String imgPath;
+float dropMillis;
 
 ArrayDeque<CellsHistory> undoHistory = new ArrayDeque<>();
 ArrayDeque<CellsHistory> redoHistory = new ArrayDeque<>();
 CellsHistory ch = new CellsHistory();
 
+float aspectRatio;
+float targetWidth;
+float targetHeight;
+
+Boolean moveImageMode = false;
+Boolean scaleImageMode = false;
+
+ImageController imgcon = new ImageController();
+
 
 void setup() {
+  textFont(createFont("IBMPlexSansJP-Regular.ttf", 48));
+
+  imgX = width/2;
+  imgY = height/2;
 
   println(outputXML);
 
@@ -41,7 +66,7 @@ void setup() {
 
   background(255);
 
-
+  DragAndDrop();
 
 
   initCells();
@@ -53,16 +78,11 @@ void draw() {
   stroke(0);
   strokeWeight(0.01);
 
+  imgcon.displayImage();
+
   for (int i=0; i<=cs.size()-1; i++) {
     c = cs.get(i);
     c.render();
-
-    //fill(255,0,0,100);
-    //rect(c.x,c.y,c.scale,c.scale);
-
-
-    /*if (mouseX>cell.x && mouseX<cell.x+cell.scale) {
-     if (mouseY>cell.y && mouseY<cell.y+cell.scale) {*/
   }
 
   noStroke();
@@ -90,13 +110,58 @@ void draw() {
   text("scale:  " + ellipseSize, textZabutonX+textSpaceX, textSpaceY+textSz+3);
 
 
+
+  if (MODE=="IMAGE") {
+    szH = 50;
+    szW = 220;
+    fill(255);
+    rect(textZabutonX-szW-24, textZabutonY, szW, szH);
+
+    noStroke();
+    fill(0);
+    textSize(textSz);
+
+
+    text("image mode:  " + imgcon.mode, textZabutonX-szW, textSpaceY);
+
+
+    if (imgPath != null) {
+      szH = 37;
+      szW = 37;
+      fill(255);
+
+      textZabutonX -= szW-24;
+
+      textZabutonX += 180-szW;
+      textZabutonY = height-szH-(10+10);
+      rect(textZabutonX, textZabutonY, szW, szH);
+
+      noStroke();
+      fill(0);
+      textSize(textSz);
+      text("[x]", textZabutonX+10, (height-szH)+(13-10));
+
+      if (mousePressed) {
+        if (mouseX>textZabutonX && mouseX<(textZabutonX)+szW) {
+          if (mouseY>textZabutonY && mouseY<textZabutonY+szH) {
+            imgcon.imgClear();
+          }
+        }
+      }
+    }
+  }
+
+
+
+
   if (isViewCopiedText==true) {
     szH = 37;
     szW = 122;
     fill(255);
+    
+    textZabutonX = width-szW-space - (122/2) + 3;
+    
     rect(textZabutonX, height-szH-(10+10), szW, szH);
-
-
 
     noStroke();
     fill(0);
@@ -105,6 +170,26 @@ void draw() {
 
     text("[Copied!!]", textZabutonX+textSpaceX, (height-szH)+(13-10));
   }
+
+  imgcon.loadImg();
+
+
+
+  stroke(0);
+  if (scaleImageMode && !isMouseReleased) {
+    strokeWeight(1);
+    line(firstClickX, firstClickY, mouseX, mouseY);
+
+    stroke(255);
+    strokeWeight(1);
+    fill(0);
+    ellipseMode(CENTER);
+    ellipse(mouseX, mouseY, 20, 20);
+    ellipseMode(CORNER);
+    noFill();
+  }
+  noStroke();
+
+
+  imgcon.displayDragEnterScene();
 }
-
-

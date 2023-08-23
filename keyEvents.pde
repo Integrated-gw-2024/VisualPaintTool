@@ -6,7 +6,11 @@ void keyPressed() {
    } else if (keyCode==40) {
    targetHeight -= 10;
    }*/
-  println(keyCode);
+  
+
+  if (keyCode==ctrlCode) {
+    hasPressedCtrl = true;
+  }
 
 
   switch(keyCode) {
@@ -14,12 +18,12 @@ void keyPressed() {
     MODE = "IMAGE";
     break;
   case 81:
-    if (MODE=="IMAGE") {
+    if (MODE=="IMAGE" && imgPath != null) {
       imgcon.setMode("SCALE");
     }
     break;
   case 87:
-    if (MODE=="IMAGE") {
+    if (MODE=="IMAGE" && imgPath != null) {
       imgcon.setMode("MOVE");
     }
     break;
@@ -39,9 +43,6 @@ void keyPressed() {
       ellipseSize -= 1;
       initCells();
     }
-    break;
-  case 157:
-    hasPressedCtrl = true;
     break;
   case 16:
     hasPressedShift = true;
@@ -73,7 +74,7 @@ void keyPressed() {
 }
 
 void keyReleased() {
-  if (keyCode==157) {
+  if (keyCode==ctrlCode) {
     hasPressedCtrl = false;
   }
 

@@ -51,7 +51,20 @@ Boolean scaleImageMode = false;
 ImageController imgcon = new ImageController();
 
 
+Boolean isWinOS = System.getProperty("os.name").startsWith("Win");
+int ctrlCode;
+
+
 void setup() {
+  
+  if (isWinOS==true) {
+    println("win");
+    ctrlCode = 17;
+  } else {
+    println("mac");
+    ctrlCode = 157;
+  }
+  
   textFont(createFont("IBMPlexSansJP-Regular.ttf", 48));
 
   imgX = width/2;
@@ -153,9 +166,9 @@ void draw() {
     szH = 37;
     szW = 122;
     fill(255);
-    
+
     textZabutonX = width-szW-space - (122/2) + 3;
-    
+
     rect(textZabutonX, height-szH-(10+10), szW, szH);
 
     noStroke();
@@ -170,7 +183,7 @@ void draw() {
 
 
   stroke(0);
-  if (imgcon.mode=="SCALE" && !isMouseReleased) {
+  if (MODE=="IMAGE" && imgcon.mode=="SCALE" && !isMouseReleased) {
     strokeWeight(1);
     line(firstClickX, firstClickY, mouseX, mouseY);
 

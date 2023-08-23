@@ -6,10 +6,8 @@ class ImageController {
   String mode = "";
   
   void imgClear(){
-    println("aaaa");
     img = null;
     imgPath = null;
-    println("aosdca,ds",img);
   }
 
 

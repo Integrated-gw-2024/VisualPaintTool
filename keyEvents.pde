@@ -13,12 +13,12 @@ void keyPressed() {
   case 51:
     MODE = "IMAGE";
     break;
-  case 83:
+  case 81:
     if (MODE=="IMAGE") {
       imgcon.setMode("SCALE");
     }
     break;
-  case 77:
+  case 87:
     if (MODE=="IMAGE") {
       imgcon.setMode("MOVE");
     }
